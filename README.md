@@ -32,3 +32,13 @@ The lifetime of that new authentication cookie is based on the existing one, as 
 ### What if refreshing the token doesn't work?
 
 Then we'll try again on the next requests, until it succeeds or the authentication cookie expires and we'll ask the user to log in again.
+
+### Anything else?
+
+In this case, it's possible that a user closes their browser, navigates back to the application and is still logged in.
+Since the authentication cookie is flagged to be access by HTTP only, there's no way we can kill it with JS when the user navigates away.
+Keeping short-lived cookies might be enough.
+
+If the cookie **has** to be killed when the user closes their browser, then we could issue an authentication cookie valid for the time of the session.
+The expiration logic would have to be done against the access token and not the cookie.
+It would still be renewed to accomodate new tokens when they're renewed.
