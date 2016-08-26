@@ -33,6 +33,19 @@ The lifetime of that new authentication cookie is based on the existing one, as 
 
 Then we'll try again on the next requests, until it succeeds or the authentication cookie expires and we'll ask the user to log in again.
 
+### What should I expect, then?
+
+We've configured in IdentityServer that this client, `mvc`, has access tokens valid for a minute.
+When logging in, you can then expect to see an initial authentication cookie which lifetime will be of 1 minute.
+
+Subsequent requests in the following 30 seconds won't try to renew tokens or issue a new authentication cookie.
+Requests within 30 to 60 seconds will try renewing the tokens, and if successful, issue a new authentication cookie valid for another 1 minute.
+
+To avoid having valid refresh tokens in the wild, their lifetime is also aligned with the access token, so they become invalid when:
+
+ - it's used to get a new set of tokens, or
+ - the session ends because the cookie expires since the cookie, the access token and the refresh token share the same lifetime
+
 ### Anything else?
 
 In this case, it's possible that a user closes their browser, navigates back to the application and is still logged in.
