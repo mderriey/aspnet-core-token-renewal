@@ -35,6 +35,9 @@ Then we'll try again on the next requests, until it succeeds or the authenticati
 
 ### What should I expect, then?
 
+The `About` page needs the user to be authenticated, so the OIDC middle ware will redirect you to IdentityServer login page.
+You can login with the user `bob` and the password `secret`.
+
 We've configured in IdentityServer that this client, `mvc`, has access tokens valid for a minute.
 When logging in, you can then expect to see an initial authentication cookie which lifetime will be of 1 minute.
 
