@@ -3,6 +3,8 @@
 This projects shows how to handle short-lived OIDC access tokens.
 It aligns the lifetime of the ASP.NET session cookie with the one of the OIDC access token.
 
+_Note: This code has been upgraded to work with ASP.NET Core 2.0; if you're after the original version based on ASP.NET Core 1.x, you can check the `asp-net-core-1` branch_
+
 ### How does it work?
 
 When the OIDC middleware redeems the authorisation code for an access token and a refresh token, we add these tokens to the `ClaimsIdentity` as ClaimsIdentityso they end up in the encrypted authentication cookie.
@@ -27,7 +29,7 @@ It's then a matter of removing the old tokens from the claims, add the new ones,
 That last part is much easier in ASP.NET Core than it was with OWIN. I never got this to work with OWIN, to be honest.
 The context that is passed to the `ValidateIdentity` event contains a new property, `ShouldRenew`, which we can set to `true` for the middleware to automatically issue a new token.
 
-The lifetime of that new authentication cookie is based on the existing one, as you can see [here](https://github.com/aspnet/Security/blob/3a5df89f1c06868cc6dd67997ea492c227a977fc/src/Microsoft.AspNetCore.Authentication.Cookies/CookieAuthenticationHandler.cs#L58).
+The lifetime of that new authentication cookie is based on the existing one, as you can see [here](https://github.com/aspnet/Security/blob/e98a0d243a7a5d8076ab85c3438739118cdd53ff/src/Microsoft.AspNetCore.Authentication.Cookies/CookieAuthenticationHandler.cs#L88-L102).
 
 ### What if refreshing the token doesn't work?
 
