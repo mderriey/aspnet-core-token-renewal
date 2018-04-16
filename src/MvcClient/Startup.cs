@@ -75,9 +75,9 @@
 
                                     identity.AddClaims(new[]
                                     {
-                                    new Claim("access_token", response.AccessToken),
-                                    new Claim("refresh_token", response.RefreshToken)
-                                });
+                                        new Claim("access_token", response.AccessToken),
+                                        new Claim("refresh_token", response.RefreshToken)
+                                    });
 
                                     // indicate to the cookie middleware to renew the session cookie
                                     // the new lifetime will be the same as the old one, so the alignment
