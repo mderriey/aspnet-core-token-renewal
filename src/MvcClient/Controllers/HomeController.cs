@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MvcClient.Controllers
@@ -16,6 +17,20 @@ namespace MvcClient.Controllers
             ViewData["Message"] = "Your application description page.";
 
             return View();
+        }
+
+        [Authorize]
+        public IActionResult Ajax()
+        {
+            var claims = User
+                .Claims
+                .Select(x => new
+                {
+                    x.Type,
+                    x.Value
+                });
+
+            return Json(claims);
         }
 
         public IActionResult Contact()

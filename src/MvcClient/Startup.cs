@@ -10,6 +10,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
@@ -138,6 +139,27 @@
                             x.Properties.ExpiresUtc = accessToken.ValidTo;
 
                             return Task.CompletedTask;
+                        },
+
+                        // that event is called before the OIDC middleware issues a 302 Redirect
+                        // so that the user can login on the IdentityServer side
+                        OnRedirectToIdentityProvider = async x =>
+                        {
+                            if (IsAjaxRequest(x.Request))
+                            {
+                                x.HandleResponse();
+                                x.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                                await x.Response.WriteAsync(JsonConvert.SerializeObject(new
+                                {
+                                    errorMessage = "The session has expired, you need to login again"
+                                }));
+                            }
+                            
+                            bool IsAjaxRequest(HttpRequest request)
+                            {
+                                var requestedWithHeader = request.Headers["X-Requested-With"];
+                                return requestedWithHeader.Equals("XMLHttpRequest");
+                            }
                         }
                     };
                 });
