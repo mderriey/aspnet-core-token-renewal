@@ -1,3 +1,5 @@
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=mderriey/aspnet-core-token-renewal)](https://dependabot.com)
+
 ## Description
 
 This projects shows how to handle short-lived OIDC access tokens.
