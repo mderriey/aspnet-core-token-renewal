@@ -1,3 +1,4 @@
+[![Build status](https://dev.azure.com/mderriey/github-pipelines/_apis/build/status/aspnet-core-token-renewal)](https://dev.azure.com/mderriey/github-pipelines/_build/latest?definitionId=18)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=mderriey/aspnet-core-token-renewal)](https://dependabot.com)
 
 ## Description
