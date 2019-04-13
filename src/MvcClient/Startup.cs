@@ -12,6 +12,7 @@
     using Microsoft.Extensions.Logging;
     using System;
     using System.IdentityModel.Tokens.Jwt;
+    using System.Net.Http;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -70,8 +71,13 @@
                                 // if we have to refresh, grab the refresh token from the claims, and request
                                 // new access token and refresh token
                                 var refreshToken = refreshTokenClaim.Value;
-                                var client = new TokenClient("https://localhost:44347/connect/token", "mvc", "mvc");
-                                var response = await client.RequestRefreshTokenAsync(refreshToken);
+                                var response = await new HttpClient().RequestRefreshTokenAsync(new RefreshTokenRequest
+                                {
+                                    Address = "https://localhost:44347/connect/token",
+                                    ClientId = "mvc",
+                                    ClientSecret = "mvc",
+                                    RefreshToken = refreshToken
+                                });
 
                                 if (!response.IsError)
                                 {
