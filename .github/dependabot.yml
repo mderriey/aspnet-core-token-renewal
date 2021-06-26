@@ -1,0 +1,45 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "19:00"
+  open-pull-requests-limit: 40
+  ignore:
+  - dependency-name: Microsoft.AspNetCore.Authentication.OpenIdConnect
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: Microsoft.Extensions.Configuration.EnvironmentVariables
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: Microsoft.Extensions.Configuration.Json
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: Microsoft.Extensions.Logging
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: Microsoft.Extensions.Logging.Console
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: Microsoft.Extensions.Logging.Debug
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: Microsoft.Extensions.Options.ConfigurationExtensions
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: Microsoft.Owin
+    versions:
+    - "< 5, >= 4.a"
+  - dependency-name: Microsoft.Owin.Host.SystemWeb
+    versions:
+    - "< 5, >= 4.a"
+  - dependency-name: Microsoft.AspNetCore.Authentication.OpenIdConnect
+    versions:
+    - 5.0.2
+    - 5.0.3
+    - 5.0.4
+  - dependency-name: IdentityModel
+    versions:
+    - 5.0.0
+    - 5.0.1
